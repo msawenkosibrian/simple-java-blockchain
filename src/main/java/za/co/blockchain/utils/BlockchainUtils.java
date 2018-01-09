@@ -4,6 +4,7 @@ import java.security.MessageDigest;
 import java.util.Date;
 
 import za.co.blockchain.Blockchain;
+import za.co.blockchain.vo.Block;
 
 /**
  * @author Msawenkosi Ntuli
@@ -41,7 +42,7 @@ public final class BlockchainUtils {
 	        return hexString.toString();
 	    } 
 		catch (Exception ex) {
-	       throw new RuntimeException(ex);
+	        throw new RuntimeException(ex);
 	    }
 	}
 	
@@ -49,12 +50,22 @@ public final class BlockchainUtils {
 	 * Checks if the Blockchain is in a consistent state by comparing hashes of consecutive blocks.
 	 * 
 	 * @param blockchain
-	 * @return
+	 * @return 
 	 */
 	public static final boolean isBlockchainValid(Blockchain blockchain) {
 		
-		// This is going to be fun!
+		Block tail = blockchain.getTail();
+		Block current = tail;
 		
+		while (current.getPrevBlock() != null) {
+			// TODO: recalculate block hash and check for integrity
+			
+			Block prevBlock = current.getPrevBlock();
+			if (current.getPrevHash() != prevBlock.getHash()) {
+				return false;
+			}
+			current = prevBlock;
+		}		
 		return true;
 	}
 }

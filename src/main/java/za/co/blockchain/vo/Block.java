@@ -5,6 +5,8 @@ import org.json.simple.JSONObject;
 import za.co.blockchain.utils.BlockchainUtils;
 
 /**
+ * TODO add proof of work (mining complexity)
+ * 
  * @author Msawenkosi Ntuli
  *
  */
@@ -20,6 +22,7 @@ public class Block {
 
 		this.index = index;
 		this.data = data;
+		this.timestamp = timestamp;
 		this.hash = getHash();
 	}
 
@@ -60,6 +63,7 @@ public class Block {
 		obj.put("index", new Integer(index));
 		obj.put("hash", hash);
 		obj.put("prevHash", (this.prevBlock != null)? this.prevBlock.getHash(): "");
+		obj.put("timestamp", timestamp);
 		obj.put("data", (this.data != null)? data.toString(): "Genesis block");
 		return obj.toJSONString();
 	}
