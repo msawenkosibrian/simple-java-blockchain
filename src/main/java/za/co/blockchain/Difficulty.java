@@ -9,8 +9,8 @@ package za.co.blockchain;
 public enum Difficulty {
 	
 	EASY(3), // 3 zeros prefix
-	MEDIUM(4), // 4 zeros prefix
-	DIFFICULT(5); // 5 zeros prefix
+	MEDIUM(5), // 4 zeros prefix
+	DIFFICULT(7); // 7 zeros prefix
 	
 	private int level;
 	

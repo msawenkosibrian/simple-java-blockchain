@@ -4,6 +4,7 @@ import java.security.MessageDigest;
 import java.util.Date;
 
 import za.co.blockchain.Blockchain;
+import za.co.blockchain.Difficulty;
 import za.co.blockchain.vo.Block;
 
 /**
@@ -44,6 +45,12 @@ public final class BlockchainUtils {
 		catch (Exception ex) {
 	        throw new RuntimeException(ex);
 	    }
+	}
+	
+	public static final boolean isValidHashDifficulty(String hash, Difficulty level) {
+		
+		String target = new String(new char[level.getLevel()]).replace('\0', '0');
+		return hash.substring(0, level.getLevel()).equals(target);
 	}
 	
 	/**

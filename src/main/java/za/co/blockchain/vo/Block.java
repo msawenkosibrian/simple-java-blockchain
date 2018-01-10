@@ -2,11 +2,10 @@ package za.co.blockchain.vo;
 
 import org.json.simple.JSONObject;
 
+import za.co.blockchain.Difficulty;
 import za.co.blockchain.utils.BlockchainUtils;
 
 /**
- * TODO add proof of work (mining complexity)
- * 
  * @author Msawenkosi Ntuli
  *
  */
@@ -16,6 +15,7 @@ public class Block {
 	private String hash;
 	private Block prevBlock;
 	private String timestamp;
+	private int nonce;
 	private Data data;
 	
 	public Block(int index, String timestamp, Data data) {
@@ -23,7 +23,7 @@ public class Block {
 		this.index = index;
 		this.data = data;
 		this.timestamp = timestamp;
-		this.hash = getHash();
+		this.hash = hash();
 	}
 
 	public final int getIndex() {
@@ -31,9 +31,25 @@ public class Block {
 		return index;
 	}
 
-	public final String getHash() {
+	public String getHash() {
 		
-		return BlockchainUtils.hash(String.valueOf(index), (prevBlock != null)? prevBlock.getHash(): "", timestamp, (data != null)? data.toString(): "");
+		if (hash != null || !hash.isEmpty()) {
+			return hash;
+		}
+		return hash();
+	}
+	
+	public void mine(Difficulty level) {
+		
+		while (!BlockchainUtils.isValidHashDifficulty(hash, level)) {
+			++nonce;
+			hash = hash();
+		}
+	}
+	
+	private String hash() {
+		
+		return BlockchainUtils.hash(String.valueOf(index), (prevBlock != null)? prevBlock.getHash(): "", timestamp, (data != null)? data.toString(): "", String.valueOf(nonce));
 	}
 
 	public final Block getPrevBlock() {

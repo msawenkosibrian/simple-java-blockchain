@@ -1,5 +1,6 @@
 package za.co.blockchain.manager;
 
+import za.co.blockchain.Difficulty;
 import za.co.blockchain.vo.Block;
 import za.co.blockchain.vo.Data;
 
@@ -9,5 +10,5 @@ import za.co.blockchain.vo.Data;
  */
 public interface BlockManager {
 
-	public Block createBlock(int index, Data data);
+	public Block createBlock(int index, Data data, Difficulty level);
 }

@@ -28,7 +28,7 @@ public class BlockchainTest {
 	public void setUp() throws Exception {
 		
 		blockManager = new BlockManagerImpl();
-		blockchain = new Blockchain();
+		blockchain = new Blockchain(Difficulty.MEDIUM);
 	}
 
 	@Test
@@ -80,9 +80,7 @@ public class BlockchainTest {
 		data.setFrom(from);
 		data.setTo(to);
 		
-		Block block = blockManager.createBlock(blockchain.getSize(), data);
+		Block block = blockManager.createBlock(blockchain.getSize(), data, blockchain.getMiningDifficulty());
 		return block;
-	}
-	
-	
+	}	
 }

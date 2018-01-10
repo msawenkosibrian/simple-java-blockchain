@@ -17,14 +17,21 @@ public class Blockchain {
 	private Block genesis; // Genesis block.
 	private Block tail; // Latest block in the Blockchain.
 	private BlockManager blockManager;
+	private Difficulty level = Difficulty.EASY;
 	
-	public Blockchain() {
+	public Blockchain(Difficulty level) {
 		
+		this.level = level;
 		blockManager = new BlockManagerImpl();
-		genesis = blockManager.createBlock(0, null);
+		genesis = blockManager.createBlock(0, null, level);
 		genesis.setPrevBlock(null);
 		tail = genesis;
 		size++;
+	}
+	
+	public Difficulty getMiningDifficulty() {
+		
+		return level;
 	}
 	
 	public Block addBlock(Block block) {
